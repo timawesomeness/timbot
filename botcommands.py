@@ -1,4 +1,4 @@
-import options
+import options, random
 
 botnick = options.botnick
 

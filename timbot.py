@@ -1,4 +1,4 @@
-import socket, ssl, random, datetime, options, botcommands
+import socket, ssl, datetime, options, botcommands
 
 server = options.server
 port = options.port
