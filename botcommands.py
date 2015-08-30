@@ -69,17 +69,17 @@ def decodemsg(message, channel):
 def sendmsg(chan, msg):
     from timbot import send
     print("Sending \"" + str(parsetxt(msg)).strip('b\'').strip('\'') + "\" to " + str(parsetxt(chan)).strip('b\'').strip('\''))
-    timbot.send("PRIVMSG " + chan + " :" + msg + "\n")
+    send("PRIVMSG " + chan + " :" + msg + "\n")
 
 def joinchan(chan):
     from timbot import send
     print("Joining " + str(parsetxt(chan)).strip('b\'').strip('\''))
-    timbot.send("JOIN " + chan + "\n")
+    send("JOIN " + chan + "\n")
 
 def partchan(chan):
     from timbot import send
     print("Leaving " + str(parsetxt(chan)).strip('b\'').strip('\''))
-    timbot.send("PART " + chan + "\n")
+    send("PART " + chan + "\n")
 
 def parsetxt(txt):
     return bytes(txt, 'UTF-8')
