@@ -3,7 +3,6 @@ import options
 botnick = options.botnick
 
 def findcommand(nick, channel, message):
-    import timbot
     msg = decodemsg(message, channel)
     if  msg == ".duck":
         sendmsg(channel, pickduck())
@@ -34,7 +33,7 @@ def findcommand(nick, channel, message):
         sendmsg("~#local", "timawesomeness mentioned by " + nick + " in " + channel)
         sendmsg("~#local", "\"" + msg + "\"")
     elif (msg == ".killbutt") and ((nick == "timawesomeness") or (nick == "?timawesomeness")):
-        print("\nKilled by " + nick)
+        print("\nKilled by " + str(parsetxt(nick)).strip('b\'').strip('\''))
         quit()
 
 def murder(nick, murderee):
@@ -68,16 +67,19 @@ def decodemsg(message, channel):
     return message.split(channel + ' :')[1]
 
 def sendmsg(chan, msg):
-    import timbot
-    print("Sending \"" + msg + "\" to " + chan)
+    from timbot import send
+    print("Sending \"" + str(parsetxt(msg)).strip('b\'').strip('\'') + "\" to " + str(parsetxt(chan)).strip('b\'').strip('\''))
     timbot.send("PRIVMSG " + chan + " :" + msg + "\n")
 
 def joinchan(chan):
-    import timbot
-    print("Joining " + chan)
+    from timbot import send
+    print("Joining " + str(parsetxt(chan)).strip('b\'').strip('\''))
     timbot.send("JOIN " + chan + "\n")
 
 def partchan(chan):
-    import timbot
-    print("Leaving " + chan)
+    from timbot import send
+    print("Leaving " + str(parsetxt(chan)).strip('b\'').strip('\''))
     timbot.send("PART " + chan + "\n")
+
+def parsetxt(txt):
+    return bytes(txt, 'UTF-8')

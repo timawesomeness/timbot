@@ -37,7 +37,7 @@ joinchans(channels)
 while 1:
     ircmsg = ircsock.recv(2048).decode('UTF-8')
     ircmsg = ircmsg.strip('\n\r')
-    print(datetime.datetime.now().strftime("[%#I:%M:%S %p] ") + ircmsg)
+    print(datetime.datetime.now().strftime("[%#I:%M:%S %p] ") + str(parsetxt(ircmsg)).strip('b\'').strip('\''))
 
     if ircmsg.find(' PRIVMSG ') != -1:
       nick = ircmsg.split('!')[0][1:]
