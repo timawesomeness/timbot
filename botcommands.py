@@ -1,4 +1,4 @@
-import options, random
+import options, random, haiku
 
 botnick = options.botnick
 
@@ -18,6 +18,8 @@ def findcommand(nick, channel, message):
             murderee = nick
             nick = botnick
         return "SEND", channel, murder(nick, murderee)
+    elif msg == ".haiku":
+        return "SENDMULTI", channel, haiku.create()
     elif msg == ".rolecall":
         return "SEND", channel, pickduck() + " here"
     elif (message.find(" :.join ") != -1) and ((nick == "timawesomeness") or (nick == "?timawesomeness")):
@@ -49,8 +51,8 @@ def murder(nick, murderee):
         5: nick + " burns " + murderee + " to death with a napalm flamethrower.",
         6: nick + " brutally murders " + murderee + " with a nail gun.",
         7: nick + " brutally murders " + murderee + " using an electric chair.",
-        8: nick + " brutally murders " + murderee + " with a .50 caliber pistol."
-        9: nick + " stabs " + murderee + " to death with a rusty nail."
+        8: nick + " brutally murders " + murderee + " with a .50 caliber pistol.",
+        9: nick + " stabs " + murderee + " to death with a rusty nail.",
         10: nick + " bashes " + murderee + "\'s head in with a hammer."
     }
     return murders[num]

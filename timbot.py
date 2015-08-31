@@ -50,17 +50,20 @@ while 1:
     print(datetime.datetime.now().strftime("[%#I:%M:%S %p] ") + str(parsetxt(ircmsg)).strip('b\'').strip('\''))
 
     if ircmsg.find(' PRIVMSG ') != -1:
-      nick = ircmsg.split('!')[0][1:]
-      channel = ircmsg.split(' PRIVMSG ')[-1].split(' :')[0]
-      command, chan, output = botcommands.findcommand(nick, channel, ircmsg)
-      if command == "SEND":
-          sendmsg(chan, output)
-      elif command == "JOIN":
-          joinchan(output)
-      elif command == "PART":
-          partchan(output)
-      else:
-          command, chan, output = "", "", ""
+        nick = ircmsg.split('!')[0][1:]
+        channel = ircmsg.split(' PRIVMSG ')[-1].split(' :')[0]
+        command, chan, output = botcommands.findcommand(nick, channel, ircmsg)
+        if command == "SEND":
+            sendmsg(chan, output)
+        elif command == "SENDMULTI":
+            for i in output:
+                sendmsg(chan, i)
+        elif command == "JOIN":
+            joinchan(output)
+        elif command == "PART":
+            partchan(output)
+        else:
+            command, chan, output = "", "", ""
 
     if ircmsg.find("PING :") != -1:
         ping()
