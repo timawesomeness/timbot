@@ -5,36 +5,40 @@ botnick = options.botnick
 def findcommand(nick, channel, message):
     msg = decodemsg(message, channel)
     if  msg == ".duck":
-        sendmsg(channel, pickduck())
+        return "SEND", channel, pickduck()
     elif (msg == ".bang") and (channel == "#penguinpower" or channel == "#timawesomeness"):
-        sendmsg(channel, nick + " you missed the duck completely.")
+        return "SEND", channel, nick + " you missed the duck completely."
+    elif (msg == "What distro should you use?"):
+        return "SEND", channel, "GENTOOGENTOOGENTOOGENTOO GEEEEEEEEEEEEEEEEEEENTOOOOOOOOOOOOOOOOOOOO"
     elif msg == ".bamg" or msg == ".banf":
-        sendmsg(channel, "Learn to type, " + nick)
+        return "SEND", channel, "Learn to type, " + nick
     elif message.find(" :.murder ") != -1:
         murderee = message.split('.murder ')[1].strip(' ')
         if murderee == botnick:
             murderee = nick
             nick = botnick
-        sendmsg(channel, murder(nick, murderee))
+        return "SEND", channel, murder(nick, murderee)
     elif msg == ".rolecall":
-        sendmsg(channel, pickduck() + " here")
+        return "SEND", channel, pickduck() + " here"
     elif (message.find(" :.join ") != -1) and ((nick == "timawesomeness") or (nick == "?timawesomeness")):
-        joinchan(message.split('.join ')[1].strip(' '))
+        return "JOIN", channel, message.split('.join ')[1].strip(' ')
     elif (message.find(" :.part ") != -1) and ((nick == "timawesomeness") or (nick == "?timawesomeness")):
-        partchan(message.split('.part ')[1].strip(' '))
+        return "PART", channel, message.split('.part ')[1].strip(' ')
     elif msg == ".timsource":
-        sendmsg(channel, "https://github.com/timawesomeness/timbot")
+        return "SEND", channel, "https://github.com/timawesomeness/timbot"
     elif msg == ".nsa/win":
-        sendmsg(channel, "I’d just like to interject for a moment. What you’re refering to as Windows, is in fact, NSA/Windows, or as I’ve recently taken to calling it, NSA plus Windows. Windows is not an operating system unto itself, but rather another locked down component of a fully functioning NSA system made useful by the NSA corelibs, shell utilities and vital system components comprising a full OS as defined by the government.")
+        return "SEND", channel, "I’d just like to interject for a moment. What you’re refering to as Windows, is in fact, NSA/Windows, or as I’ve recently taken to calling it, NSA plus Windows. Windows is not an operating system unto itself, but rather another locked down component of a fully functioning NSA system made useful by the NSA corelibs, shell utilities and vital system components comprising a full OS as defined by the government."
     elif (message.split(channel + ' :')[1].find(botnick) != -1):
-        sendmsg("~#local", botnick + " mentioned by " + nick + " in " + channel)
-        sendmsg("~#local", "\"" + msg + "\"")
+        return "SEND", "~#local", botnick + " mentioned by " + nick + " in " + channel + ":"
+        return "SEND", "~#local", "\"" + msg + "\""
     elif (message.split(channel + ' :')[1].find("timawesomeness") != -1):
-        sendmsg("~#local", "timawesomeness mentioned by " + nick + " in " + channel)
-        sendmsg("~#local", "\"" + msg + "\"")
+        return "SEND", "~#local", "timawesomeness mentioned by " + nick + " in " + channel
+        return "SEND", "~#local", "\"" + msg + "\""
     elif (msg == ".killbutt") and ((nick == "timawesomeness") or (nick == "?timawesomeness")):
         print("\nKilled by " + str(parsetxt(nick)).strip('b\'').strip('\''))
         quit()
+    else:
+        return "", "", ""
 
 def murder(nick, murderee):
     num = random.randint(0,8)
@@ -65,21 +69,6 @@ def pickduck():
 
 def decodemsg(message, channel):
     return message.split(channel + ' :')[1]
-
-def sendmsg(chan, msg):
-    from timbot import send
-    print("Sending \"" + str(parsetxt(msg)).strip('b\'').strip('\'') + "\" to " + str(parsetxt(chan)).strip('b\'').strip('\''))
-    send("PRIVMSG " + chan + " :" + msg + "\n")
-
-def joinchan(chan):
-    from timbot import send
-    print("Joining " + str(parsetxt(chan)).strip('b\'').strip('\''))
-    send("JOIN " + chan + "\n")
-
-def partchan(chan):
-    from timbot import send
-    print("Leaving " + str(parsetxt(chan)).strip('b\'').strip('\''))
-    send("PART " + chan + "\n")
 
 def parsetxt(txt):
     return bytes(txt, 'UTF-8')

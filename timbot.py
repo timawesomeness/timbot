@@ -10,7 +10,7 @@ def parsetxt(txt):
     return bytes(txt, 'UTF-8')
 
 def send(thing):
-    ircsock.send(parsetxt(thing))
+    ircsock.send(bytes(thing, 'UTF-8'))
 
 def auth(passwd):
     send("PASS " + passwd + "\n")
@@ -22,8 +22,17 @@ def joinchans(chans):
     for chan in chans:
         send("JOIN " + chan + "\n")
 
-def hello():
-    send("PRIVMSG " + channel + " :・゜゜・。。・゜ ​ ゜\_O​< QUA​CK!\n")
+def joinchan(chan):
+    print("Joining " + str(parsetxt(chan)).strip('b\'').strip('\''))
+    send("JOIN " + chan + "\n")
+
+def partchan(chan):
+    print("Leaving " + str(parsetxt(chan)).strip('b\'').strip('\''))
+    send("PART " + chan + "\n")
+
+def sendmsg(chan, msg):
+    print("Sending \"" + str(parsetxt(msg)).strip('b\'').strip('\'') + "\" to " + str(parsetxt(chan)).strip('b\'').strip('\''))
+    send("PRIVMSG " + chan + " :" + msg + "\n")
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((server, port))
@@ -42,7 +51,15 @@ while 1:
     if ircmsg.find(' PRIVMSG ') != -1:
       nick = ircmsg.split('!')[0][1:]
       channel = ircmsg.split(' PRIVMSG ')[-1].split(' :')[0]
-      botcommands.findcommand(nick, channel, ircmsg)
+      command, chan, output = botcommands.findcommand(nick, channel, ircmsg)
+      if command == "SEND":
+          sendmsg(chan, output)
+      elif command == "JOIN":
+          joinchan(output)
+      elif command == "PART":
+          partchan(output)
+      else:
+          command, chan, output = "", "", ""
 
     if ircmsg.find("PING :") != -1:
         ping()
