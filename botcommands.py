@@ -29,11 +29,9 @@ def findcommand(nick, channel, message):
     elif msg == ".nsa/win":
         return "SEND", channel, "I’d just like to interject for a moment. What you’re refering to as Windows, is in fact, NSA/Windows, or as I’ve recently taken to calling it, NSA plus Windows. Windows is not an operating system unto itself, but rather another locked down component of a fully functioning NSA system made useful by the NSA corelibs, shell utilities and vital system components comprising a full OS as defined by the government."
     elif (message.split(channel + ' :')[1].find(botnick) != -1):
-        return "SEND", "~#local", botnick + " mentioned by " + nick + " in " + channel + ":"
-        return "SEND", "~#local", "\"" + msg + "\""
+        return "SEND", "~#local", botnick + " mentioned by " + nick + " in " + channel + ": " + '\"' + msg + '\"'
     elif (message.split(channel + ' :')[1].find("timawesomeness") != -1):
-        return "SEND", "~#local", "timawesomeness mentioned by " + nick + " in " + channel
-        return "SEND", "~#local", "\"" + msg + "\""
+        return "SEND", "~#local", "timawesomeness mentioned by " + nick + " in " + channel + ": " + '\"' + msg + '\"'
     elif (msg == ".killbutt") and ((nick == "timawesomeness") or (nick == "?timawesomeness")):
         print("\nKilled by " + str(parsetxt(nick)).strip('b\'').strip('\''))
         quit()

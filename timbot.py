@@ -34,15 +34,16 @@ def sendmsg(chan, msg):
     print("Sending \"" + str(parsetxt(msg)).strip('b\'').strip('\'') + "\" to " + str(parsetxt(chan)).strip('b\'').strip('\''))
     send("PRIVMSG " + chan + " :" + msg + "\n")
 
+# Connect, set nick, and join channels
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((server, port))
 ircsock = ssl.wrap_socket(s)
 auth(password)
 send("USER " + botnick + " " + botnick + " " + botnick + " :This bot is " + botnick + ", controlled by timawesomeness\n")
 send("NICK " + botnick + "\n")
-
 joinchans(channels)
 
+#Main loop
 while 1:
     ircmsg = ircsock.recv(2048).decode('UTF-8')
     ircmsg = ircmsg.strip('\n\r')
