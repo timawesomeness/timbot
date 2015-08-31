@@ -39,17 +39,19 @@ def findcommand(nick, channel, message):
         return "", "", ""
 
 def murder(nick, murderee):
-    num = random.randint(0,8)
+    num = random.randint(0,10)
     murders = {
         0: nick + " brutally murders " + murderee + " with a rusty axe.",
         1: nick + " brutally murders " + murderee + " with a chainsaw.",
         2: nick + " brutally murders " + murderee + " with a bloody scalpel.",
-        3: nick + " brutally murders " + murderee + " with Winter_Fox.",
+        3: nick + " brutally murders " + murderee + " with Winter_Fax.",
         4: nick + " brutally murders " + murderee + " with a large cleaver.",
         5: nick + " burns " + murderee + " to death with a napalm flamethrower.",
         6: nick + " brutally murders " + murderee + " with a nail gun.",
         7: nick + " brutally murders " + murderee + " using an electric chair.",
         8: nick + " brutally murders " + murderee + " with a .50 caliber pistol."
+        9: nick + " stabs " + murderee + " to death with a rusty nail."
+        10: nick + " bashes " + murderee + "\'s head in with a hammer."
     }
     return murders[num]
 
