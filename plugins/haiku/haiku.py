@@ -1,4 +1,4 @@
-#Shamelessly copied from /u/Gorgyle
+#Partially shamelessly copied from /u/Gorgyle
 
 from random import randint
 
@@ -8,19 +8,19 @@ seven = []
 name1s = []
 name2s = []
 
-for line in open('haiku/list5'):
+for line in open('plugins/haiku/list5'):
     five.append(line)
 
-for line in open('haiku/list7'):
+for line in open('plugins/haiku/list7'):
     seven.append(line);
 
-for line in open('haiku/name1'):
+for line in open('plugins/haiku/name1'):
         name1s.append(line);
 
-for line in open('haiku/name2'):
+for line in open('plugins/haiku/name2'):
         name2s.append(line);
 
-def create():
+def createhaiku():
     poem1 = five[randint(0,len(five)-1)]
     poem2 = seven[randint(0,len(seven)-1)]
     poem3 = five[randint(0,len(five)-1)]
