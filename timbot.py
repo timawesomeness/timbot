@@ -51,7 +51,7 @@ while 1:
 
     if ircmsg.find(' PRIVMSG ') != -1:
         nick = ircmsg.split('!')[0][1:]
-        channel = ircmsg.split(' PRIVMSG ')[-1].split(' :')[0]
+        channel = ircmsg.split(' PRIVMSG ', 1)[-1].split(' :', 1)[0]
         command, chan, output = botcommands.findcommand(nick, channel, ircmsg)
         if command == "SEND":
             sendmsg(chan, output)
