@@ -8,16 +8,16 @@ seven = []
 name1s = []
 name2s = []
 
-for line in open('list5'):
+for line in open('haiku/list5'):
     five.append(line)
 
-for line in open('list7'):
+for line in open('haiku/list7'):
     seven.append(line);
 
-for line in open('name1'):
+for line in open('haiku/name1'):
         name1s.append(line);
 
-for line in open('name2'):
+for line in open('haiku/name2'):
         name2s.append(line);
 
 def create():

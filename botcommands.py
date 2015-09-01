@@ -1,4 +1,4 @@
-import options, random, haiku
+import options, random, haiku.haiku
 
 botnick = options.botnick
 
@@ -19,7 +19,7 @@ def findcommand(nick, channel, message):
             nick = botnick
         return "SEND", channel, murder(nick, murderee)
     elif msg == ".haiku":
-        return "SENDMULTI", channel, haiku.create()
+        return "SENDMULTI", channel, haiku.haiku.create()
     elif msg == ".rolecall":
         return "SEND", channel, pickduck() + " here"
     elif (message.find(" :.join ") != -1) and ((nick == "timawesomeness") or (nick == "?timawesomeness")):
