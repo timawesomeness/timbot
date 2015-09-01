@@ -38,7 +38,7 @@ def sendmsg(chan, msg):
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((server, port))
 ircsock = ssl.wrap_socket(s)
-auth(password)
+if (options.serverpass != ""): auth(password);
 send("USER " + botnick + " " + botnick + " " + botnick + " :This bot is " + botnick + ", controlled by timawesomeness\n")
 send("NICK " + botnick + "\n")
 joinchans(channels)
