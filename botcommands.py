@@ -19,6 +19,8 @@ def findcommand(nick, channel, message):
             murderee = nick
             nick = botnick
         return "SEND", channel, murder(nick, murderee)
+    elif msg.find("grammer") != -1:
+        return "SEND", channel, "grammar*"
     elif msg == ".haiku":
         return "SENDMULTI", channel, createhaiku()
     elif msg == ".rolecall":
