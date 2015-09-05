@@ -1,3 +1,9 @@
+#####################################################################
+# Copyright 2015 timawesomeness                                     #
+#                                                                   #
+# Licensed under the Apache License, Version 2.0 (the "License");   #
+# you may not use this file except in compliance with the License.  #
+#####################################################################
 import options, random
 from plugins.haiku.haiku import createhaiku
 
@@ -19,7 +25,7 @@ def findcommand(nick, channel, message):
             murderee = nick
             nick = botnick
         return "SEND", channel, murder(nick, murderee)
-    elif msg.find("grammer") != -1:
+    elif message.find(channel + " :grammer") != -1 or msg.find(" grammar") != -1:
         return "SEND", channel, "grammar*"
     elif msg == ".haiku":
         return "SENDMULTI", channel, createhaiku()
