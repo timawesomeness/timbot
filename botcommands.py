@@ -14,7 +14,7 @@ def findcommand(nick, channel, message):
     if  msg == ".duck":
         return "SEND", channel, pickduck()
     elif (msg == ".bang") and (channel == "#penguinpower" or channel == "#timawesomeness"):
-        return "SEND", channel, nick + " you missed the duck completely."
+        return "SEND", channel, nick + " you missed the duck completely. You have completely missed " + random.randint(1,1000) + "ducks in " + channel
     elif msg == ".bamg" or msg == ".banf":
         return "SEND", channel, "Learn to type, " + nick
     elif message.find(channel + " :.murder ") != -1:
