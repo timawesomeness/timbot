@@ -15,8 +15,6 @@ def findcommand(nick, channel, message):
         return "SEND", channel, pickduck()
     elif (msg == ".bang") and (channel == "#penguinpower" or channel == "#timawesomeness"):
         return "SEND", channel, nick + " you missed the duck completely."
-    elif (msg == "What distro should you use?"):
-        return "SEND", channel, "GENTOOGENTOOGENTOOGENTOO GEEEEEEEEEEEEEEEEEEENTOOOOOOOOOOOOOOOOOOOO"
     elif msg == ".bamg" or msg == ".banf":
         return "SEND", channel, "Learn to type, " + nick
     elif message.find(channel + " :.murder ") != -1:
@@ -25,7 +23,7 @@ def findcommand(nick, channel, message):
             murderee = nick
             nick = botnick
         return "SEND", channel, murder(nick, murderee)
-    elif message.find(channel + " :grammer") != -1 or msg.find(" grammar") != -1:
+    elif message.find(channel + " :grammer") != -1 or msg.find(" grammer") != -1:
         return "SEND", channel, "grammar*"
     elif msg == ".haiku":
         return "SENDMULTI", channel, createhaiku()
