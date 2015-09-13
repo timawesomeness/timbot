@@ -14,13 +14,17 @@
 # See the License for the specific language governing permissions and       #
 # limitations under the License.                                            #
 #############################################################################
-import socket, ssl, datetime, options, botcommands
+import socket, ssl, datetime, options, botcommands, sys, time, signal
 
 server = options.server
 port = options.port
 channels = options.channels
 botnick = options.botnick
 password = options.serverpass
+
+duckcountfile = open('duckcount', 'r+')
+duckcount = int(duckcountfile.read());
+duckcountfile.truncate();
 
 def parsetxt(txt):
     return bytes(txt, 'UTF-8')
@@ -51,6 +55,15 @@ def sendmsg(chan, msg):
     send("PRIVMSG " + "~#sent" + " :" + "Sending \"" + str(parsetxt(msg)).strip('b\'').strip('\'') + "\" to " + str(parsetxt(chan)).strip('b\'').strip('\'') + "\n")
     send("PRIVMSG " + chan + " :" + msg + "\n")
 
+def safeexit():
+    duckcountfile.write(str(duckcount))
+    duckcountfile.close()
+    sys.exit(0)
+
+def sighandle(signal, frame):
+    safeexit()
+
+signal.signal(signal.SIGINT, sighandle)
 # Connect, set nick, and join channels
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((server, port))
@@ -79,6 +92,12 @@ while 1:
             joinchan(output)
         elif command == "PART":
             partchan(output)
+        elif command == "DCKCNT":
+            duckcount += 1
+        elif command == "DCKFLS":
+            sendmsg(chan, "There have been " + duckcount + " duck fails since Sept. 13, 2015")
+        elif command == "QUIT":
+            safeexit()
         else:
             command, chan, output = "", "", ""
 

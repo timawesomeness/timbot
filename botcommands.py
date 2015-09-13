@@ -29,6 +29,10 @@ def findcommand(nick, channel, message):
         return "SENDMULTI", channel, createhaiku()
     elif msg == ".rolecall":
         return "SEND", channel, pickduck() + " here"
+    elif msg == ".duckfails":
+        return "DCKFLS", channel, ""
+    elif ((message.find("You tried befriending a non-existent duck, that's fucking creepy.") != -1) or (message.find("There is no duck. What are you shooting at?") != -1)) and (nick == "gonzobot"):
+        return "DCKCNT", channel, ""
     elif (message.find(" :.join ") != -1) and ((nick == "timawesomeness") or (nick == "?timawesomeness")):
         return "JOIN", channel, message.split('.join ')[1].strip(' ')
     elif (message.find(" :.part ") != -1) and ((nick == "timawesomeness") or (nick == "?timawesomeness")):
@@ -41,9 +45,9 @@ def findcommand(nick, channel, message):
         return "SEND", "~#local", botnick + " mentioned by " + nick + " in " + channel + ": " + '\"' + msg + '\"'
     elif (message.split(channel + ' :', 1)[1].find("timawesomeness") != -1):
         return "SEND", "~#local", "timawesomeness mentioned by " + nick + " in " + channel + ": " + '\"' + msg + '\"'
-    elif (msg == ".killbutt") and ((nick == "timawesomeness") or (nick == "?timawesomeness")):
+    elif (msg == ".killtim") and ((nick == "timawesomeness") or (nick == "?timawesomeness")):
         print("\nKilled by " + str(parsetxt(nick)).strip('b\'').strip('\''))
-        quit()
+        return "QUIT", channel, "quit"
     else:
         return "", "", ""
 
