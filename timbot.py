@@ -23,8 +23,9 @@ botnick = options.botnick
 password = options.serverpass
 
 duckcountfile = open('duckcount', 'r+')
-duckcount = int(duckcountfile.read());
-duckcountfile.truncate();
+duckcount = int(duckcountfile.read())
+duckcountfile.truncate(0)
+duckcountfile.seek(0)
 
 def parsetxt(txt):
     return bytes(txt, 'UTF-8')
@@ -95,7 +96,7 @@ while 1:
         elif command == "DCKCNT":
             duckcount += 1
         elif command == "DCKFLS":
-            sendmsg(chan, "There have been " + duckcount + " duck fails since Sept. 13, 2015")
+            sendmsg(chan, "There have been " + str(duckcount) + " duck fails since Sept. 13, 2015")
         elif command == "QUIT":
             safeexit()
         else:
