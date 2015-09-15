@@ -24,8 +24,6 @@ password = options.serverpass
 
 duckcountfile = open('duckcount', 'r+')
 duckcount = int(duckcountfile.read())
-duckcountfile.truncate(0)
-duckcountfile.seek(0)
 
 def parsetxt(txt):
     return bytes(txt, 'UTF-8')
@@ -57,6 +55,8 @@ def sendmsg(chan, msg):
     send("PRIVMSG " + chan + " :" + msg + "\n")
 
 def safeexit():
+    duckcountfile.truncate(0)
+    duckcountfile.seek(0)
     duckcountfile.write(str(duckcount))
     duckcountfile.close()
     sys.exit(0)
