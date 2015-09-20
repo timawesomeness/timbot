@@ -30,7 +30,7 @@ def findcommand(nick, channel, message):
     elif msg == ".rolecall":
         return "SEND", channel, pickduck() + " here"
     elif msg == ".bong":
-        return "SEND", channel, action("hands " + nick + " a shiny gold bong.")
+        return "SEND", channel, action("hands " + nick + " a " + adjective() + " " + material() + " bong.")
     elif msg == ".duckfails":
         return "DCKFLS", channel, ""
     elif ((message.find("You tried befriending a non-existent duck, that's fucking creepy.") != -1) or (message.find("There is no duck. What are you shooting at?") != -1)) and (nick == "gonzobot"):
@@ -81,6 +81,36 @@ def pickduck():
         5: "・゜゜・。 ​ 。・゜゜\​_0< QUACK​!"
     }
     return ducks[num]
+
+def adjective():
+    num = random.randint(0,9)
+    adj = {
+        0: "shiny",
+        1: "dull",
+        2: "brand new",
+        3: "spotless",
+        4: "gleaming",
+        5: "skeletal",
+        6: "fucking creepy",
+        7: "GNU/",
+        8: "glossy",
+        9: "glass-like"
+    }
+    return adj[num]
+
+def material():
+    num = random.randint(0,7)
+    mat = {
+        0: "gold",
+        1: "silver",
+        2: "platinum",
+        3: "cast iron",
+        4: "cloth",
+        5: "lithium",
+        6: "titanium",
+        7: "plastic"
+    }
+    return mat[num]
 
 def action(msg):
     return "\x01{} {}\x01".format("ACTION", msg)
