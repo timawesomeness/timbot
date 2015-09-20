@@ -29,6 +29,8 @@ def findcommand(nick, channel, message):
         return "SENDMULTI", channel, createhaiku()
     elif msg == ".rolecall":
         return "SEND", channel, pickduck() + " here"
+    elif msg == ".bong":
+        return "SEND", channel, action("hands " + nick + " a shiny gold bong.")
     elif msg == ".duckfails":
         return "DCKFLS", channel, ""
     elif ((message.find("You tried befriending a non-existent duck, that's fucking creepy.") != -1) or (message.find("There is no duck. What are you shooting at?") != -1)) and (nick == "gonzobot"):
@@ -79,6 +81,9 @@ def pickduck():
         5: "・゜゜・。 ​ 。・゜゜\​_0< QUACK​!"
     }
     return ducks[num]
+
+def action(msg):
+    return "\x01{} {}\x01".format("ACTION", msg)
 
 def decodemsg(message, channel):
     return message.split(channel + ' :', 1)[1]
