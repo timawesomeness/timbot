@@ -1,6 +1,6 @@
 #timbot - a simple SSL IRC bot written in Python3
 
-#####A lot of stuff is meant specifically for Snoonet, so should be adapted/removed if using on a different IRC network.
+#####A lot of stuff is meant specifically for Snoonet (and gonzobot-using channels specifically), so should be adapted/removed if using on a different IRC network.
 
 ##Configuration:
 

@@ -15,6 +15,7 @@
 # limitations under the License.                                            #
 #############################################################################
 import socket, ssl, datetime, options, botcommands, sys, time, signal
+from random import randint
 
 server = options.server
 port = options.port
@@ -104,3 +105,8 @@ while 1:
 
     if ircmsg.find("PING :") != -1:
         ping()
+
+    if randint(0, 25) == 0:
+        duckcountfile.truncate(0)
+        duckcountfile.seek(0)
+        duckcountfile.write(str(duckcount))

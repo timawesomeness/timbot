@@ -14,7 +14,7 @@ def findcommand(nick, channel, message):
     if  msg == ".duck":
         return "SEND", channel, pickduck()
     elif (msg == ".bang") and (channel == "#penguinpower" or channel == "#timawesomeness"):
-        return "SEND", channel, nick + " you missed the duck completely. You have completely missed " + random.randint(1,1000) + "ducks in " + channel
+        return "SEND", channel, nick + " you missed the duck completely. You have completely missed " + str(random.randint(1, 1000)) + " ducks in " + channel
     elif msg == ".bamg" or msg == ".banf":
         return "SEND", channel, "Learn to type, " + nick
     elif message.find(channel + " :.murder ") != -1:
@@ -54,7 +54,7 @@ def findcommand(nick, channel, message):
         return "", "", ""
 
 def murder(nick, murderee):
-    num = random.randint(0,10)
+    num = random.randint(0, 10)
     murders = {
         0: nick + " brutally murders " + murderee + " with a rusty axe.",
         1: nick + " brutally murders " + murderee + " with a chainsaw.",
@@ -71,7 +71,7 @@ def murder(nick, murderee):
     return murders[num]
 
 def pickduck():
-    num = random.randint(0,5)
+    num = random.randint(0, 5)
     ducks = {
         0: "・゜゜・。。・゜ ​ ゜\_O​< QUA​CK!",
         1: "・゜゜・。。 ​ ・゜゜\_o<​ qu​ack!",
@@ -83,7 +83,7 @@ def pickduck():
     return ducks[num]
 
 def adjective():
-    num = random.randint(0,9)
+    num = random.randint(0, 9)
     adj = {
         0: "shiny",
         1: "dull",
@@ -99,7 +99,7 @@ def adjective():
     return adj[num]
 
 def material():
-    num = random.randint(0,7)
+    num = random.randint(0, 8)
     mat = {
         0: "gold",
         1: "silver",
@@ -108,7 +108,8 @@ def material():
         4: "cloth",
         5: "lithium",
         6: "titanium",
-        7: "plastic"
+        7: "plastic",
+        8: "bone"
     }
     return mat[num]
 
