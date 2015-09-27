@@ -110,6 +110,11 @@ while 1:
                 sendmsg(chan, "(" + nick + ") You have " + str(duckcount[nick]["count"]) + " duck fails.")
             else:
                 sendmsg(chan, "(" + nick + ") You have 0 duck fails.")
+        elif command == "TDCKFLS":
+            num = 0
+            for i in duckcount:
+                num += duckcount[i]["count"]
+            sendmsg(chan, "There have been " + str(num) + " duck fails.")
         elif command == "QUIT":
             safeexit()
         else:

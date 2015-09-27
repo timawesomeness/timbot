@@ -33,6 +33,8 @@ def findcommand(nick, channel, message):
         return "SEND", channel, action("hands " + nick + " a shiny gold bong.")
     elif msg == ".duckfails":
         return "DCKFLS", channel, ""
+    elif msg == ".totalduckfails":
+        return "TDCKFLS", channel, ""
     elif ((msg.find("You tried befriending a non-existent duck, that's fucking creepy.") != -1) or (msg.find("There is no duck. What are you shooting at?") != -1)) and (nick == "gonzobot"):
         return "DCKCNT", channel, msg.split('(', 1)[1].split(')', 1)[0]
     elif (message.find(" :.join ") != -1) and ((nick == "timawesomeness") or (nick == "?timawesomeness")):
