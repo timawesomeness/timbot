@@ -14,8 +14,8 @@ def findcommand(nick, channel, message):
     if  msg == ".duck":
         return "SEND", channel, pickduck()
     elif (msg == ".bang") and (channel == "#penguinpower" or channel == "#timawesomeness"):
-        return "SEND", channel, nick + " you missed the duck completely. You have completely missed " + str(random.randint(1, 1000)) + " ducks in " + channel
-    elif msg == ".bamg" or msg == ".banf":
+        return "SEND", channel, nick + " you missed the duck completely. You have completely missed " + random.randint(1, 1000) + "ducks in " + channel
+    elif msg == ".bamg" or msg == ".banf" or msg == ".bangt":
         return "SEND", channel, "Learn to type, " + nick
     elif message.find(channel + " :.murder ") != -1:
         murderee = message.split('.murder ', 1)[1].strip(' ')
@@ -30,11 +30,11 @@ def findcommand(nick, channel, message):
     elif msg == ".rolecall":
         return "SEND", channel, pickduck() + " here"
     elif msg == ".bong":
-        return "SEND", channel, action("hands " + nick + " a " + adjective() + " " + material() + " bong.")
+        return "SEND", channel, action("hands " + nick + " a shiny gold bong.")
     elif msg == ".duckfails":
         return "DCKFLS", channel, ""
-    elif ((message.find("You tried befriending a non-existent duck, that's fucking creepy.") != -1) or (message.find("There is no duck. What are you shooting at?") != -1)) and (nick == "gonzobot"):
-        return "DCKCNT", channel, ""
+    elif ((msg.find("You tried befriending a non-existent duck, that's fucking creepy.") != -1) or (msg.find("There is no duck. What are you shooting at?") != -1)) and (nick == "gonzobot"):
+        return "DCKCNT", channel, msg.split('(', 1)[1].split(')', 1)[0]
     elif (message.find(" :.join ") != -1) and ((nick == "timawesomeness") or (nick == "?timawesomeness")):
         return "JOIN", channel, message.split('.join ')[1].strip(' ')
     elif (message.find(" :.part ") != -1) and ((nick == "timawesomeness") or (nick == "?timawesomeness")):
@@ -43,9 +43,9 @@ def findcommand(nick, channel, message):
         return "SEND", channel, "https://github.com/timawesomeness/timbot"
     elif msg == ".nsa/win":
         return "SEND", channel, "I’d just like to interject for a moment. What you’re refering to as Windows, is in fact, NSA/Windows, or as I’ve recently taken to calling it, NSA plus Windows. Windows is not an operating system unto itself, but rather another locked down component of a fully functioning NSA system made useful by the NSA corelibs, shell utilities and vital system components comprising a full OS as defined by the government."
-    elif (message.split(channel + ' :', 1)[1].find(botnick) != -1):
+    elif (msg.find(botnick) != -1):
         return "SEND", "~#local", botnick + " mentioned by " + nick + " in " + channel + ": " + '\"' + msg + '\"'
-    elif (message.split(channel + ' :', 1)[1].find("timawesomeness") != -1):
+    elif (msg.find("timawesomeness") != -1):
         return "SEND", "~#local", "timawesomeness mentioned by " + nick + " in " + channel + ": " + '\"' + msg + '\"'
     elif (msg == ".killtim") and ((nick == "timawesomeness") or (nick == "?timawesomeness")):
         print("\nKilled by " + str(parsetxt(nick)).strip('b\'').strip('\''))
@@ -54,7 +54,7 @@ def findcommand(nick, channel, message):
         return "", "", ""
 
 def murder(nick, murderee):
-    num = random.randint(0, 10)
+    num = random.randint(0,10)
     murders = {
         0: nick + " brutally murders " + murderee + " with a rusty axe.",
         1: nick + " brutally murders " + murderee + " with a chainsaw.",
@@ -71,7 +71,7 @@ def murder(nick, murderee):
     return murders[num]
 
 def pickduck():
-    num = random.randint(0, 5)
+    num = random.randint(0,5)
     ducks = {
         0: "・゜゜・。。・゜ ​ ゜\_O​< QUA​CK!",
         1: "・゜゜・。。 ​ ・゜゜\_o<​ qu​ack!",
@@ -81,37 +81,6 @@ def pickduck():
         5: "・゜゜・。 ​ 。・゜゜\​_0< QUACK​!"
     }
     return ducks[num]
-
-def adjective():
-    num = random.randint(0, 9)
-    adj = {
-        0: "shiny",
-        1: "dull",
-        2: "brand new",
-        3: "spotless",
-        4: "gleaming",
-        5: "skeletal",
-        6: "fucking creepy",
-        7: "GNU/",
-        8: "glossy",
-        9: "glass-like"
-    }
-    return adj[num]
-
-def material():
-    num = random.randint(0, 8)
-    mat = {
-        0: "gold",
-        1: "silver",
-        2: "platinum",
-        3: "cast iron",
-        4: "cloth",
-        5: "lithium",
-        6: "titanium",
-        7: "plastic",
-        8: "bone"
-    }
-    return mat[num]
 
 def action(msg):
     return "\x01{} {}\x01".format("ACTION", msg)

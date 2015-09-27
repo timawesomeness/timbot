@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and       #
 # limitations under the License.                                            #
 #############################################################################
-import socket, ssl, datetime, options, botcommands, sys, time, signal
+import socket, ssl, datetime, options, botcommands, sys, time, signal, json, os.path
 from random import randint
 
 server = options.server
@@ -23,8 +23,14 @@ channels = options.channels
 botnick = options.botnick
 password = options.serverpass
 
+if not os.path.exists('duckcount'):
+    with open('duckcount', 'a') as newdcf:
+        newdcf.write("{}")
+        newdcf.close()
+
 duckcountfile = open('duckcount', 'r+')
-duckcount = int(duckcountfile.read())
+# duckcount = int(duckcountfile.read())
+duckcount = json.loads(duckcountfile.read())
 
 def parsetxt(txt):
     return bytes(txt, 'UTF-8')
@@ -58,7 +64,7 @@ def sendmsg(chan, msg):
 def safeexit():
     duckcountfile.truncate(0)
     duckcountfile.seek(0)
-    duckcountfile.write(str(duckcount))
+    duckcountfile.write(json.dumps(duckcount))
     duckcountfile.close()
     sys.exit(0)
 
@@ -95,9 +101,15 @@ while 1:
         elif command == "PART":
             partchan(output)
         elif command == "DCKCNT":
-            duckcount += 1
+            if output in duckcount:
+                duckcount[output]["count"] += 1
+            else:
+                duckcount[output] = {"count":1}
         elif command == "DCKFLS":
-            sendmsg(chan, "There have been " + str(duckcount) + " duck fails since Sept. 13, 2015")
+            if nick in duckcount:
+                sendmsg(chan, "(" + nick + ") You have " + str(duckcount[nick]["count"]) + " duck fails.")
+            else:
+                sendmsg(chan, "(" + nick + ") You have 0 duck fails.")
         elif command == "QUIT":
             safeexit()
         else:
@@ -109,4 +121,4 @@ while 1:
     if randint(0, 25) == 0:
         duckcountfile.truncate(0)
         duckcountfile.seek(0)
-        duckcountfile.write(str(duckcount))
+        duckcountfile.write(json.dumps(duckcount))
